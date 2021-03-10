@@ -1,22 +1,32 @@
 package com.example.mvp_threadexecutor;
 
-import android.os.SystemClock;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class MainProcess implements MainActivityContract.allProcess {
 
+    private ExecutorService arrAddMidExecutor = Executors.newSingleThreadExecutor();
+    private ExecutorService arrRemoveMidExecutor = Executors.newSingleThreadExecutor();
+    private ExecutorService arrSearchMidExecutor = Executors.newSingleThreadExecutor();
+    private ExecutorService linkAddMidExecutor = Executors.newSingleThreadExecutor();
+    private ExecutorService linkRemoveMidExecutor = Executors.newSingleThreadExecutor();
+    private ExecutorService linkSearchMidExecutor = Executors.newSingleThreadExecutor();
+
+    private Callback callback;
+
+
+    public MainProcess(Callback callback) {
+        this.callback = callback;
+    }
+
     @Override
-    public String arrAddMid() throws ExecutionException, InterruptedException {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Callable<Long> callable = () -> {
+    public void arrAddMid() {
+        Runnable runnable = () -> {
+            StopWatch stopWatch = new StopWatch();
+            stopWatch.start();
             ArrayList<Integer> list = new ArrayList<>();
             Random rand = new Random();
             int num;
@@ -25,17 +35,16 @@ public class MainProcess implements MainActivityContract.allProcess {
                 list.add(num);
             }
             list.add(5000000, 10);
-            return SystemClock.currentThreadTimeMillis();
+            long elapsedTime = stopWatch.end();
+            callback.onArrAdMidCalculated(String.valueOf(elapsedTime));
         };
-        Future<Long> future = executor.submit(callable);
-        long result1 = future.get();
-        executor.shutdown();
-            return "" + result1 + "ms" ;
-        }
+        arrAddMidExecutor.execute(runnable);
+    }
 
-    public String arrRemoveMid () throws ExecutionException, InterruptedException {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Callable<Long> callable = () -> {
+    public void arrRemoveMid() {
+        Runnable runnable = () -> {
+            StopWatch stopWatch = new StopWatch();
+            stopWatch.start();
             ArrayList<Integer> list = new ArrayList<>();
             Random rand = new Random();
             int num;
@@ -44,17 +53,16 @@ public class MainProcess implements MainActivityContract.allProcess {
                 list.add(num);
             }
             list.remove(5000000);
-            return SystemClock.currentThreadTimeMillis();
+            long elapsedTime = stopWatch.end();
+            callback.onArrRemoveMidCalculated(String.valueOf(elapsedTime));
         };
-        Future<Long> future = executor.submit(callable);
-        long result2 = future.get();
-        executor.shutdown();
-        return "" + result2 + "ms" ;
+        arrRemoveMidExecutor.execute(runnable);
     }
 
-    public String arrSearchMid () throws ExecutionException, InterruptedException {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Callable<Long> callable = () -> {
+    public void arrSearchMid() {
+        Runnable runnable = () -> {
+            StopWatch stopWatch = new StopWatch();
+            stopWatch.start();
             ArrayList<Integer> list = new ArrayList<>();
             Random rand = new Random();
             int num;
@@ -62,20 +70,18 @@ public class MainProcess implements MainActivityContract.allProcess {
                 num = rand.nextInt(10);
                 list.add(num);
             }
-                boolean x = list.contains(50);
-            return SystemClock.currentThreadTimeMillis();
+            boolean x = list.contains(50);
+            long elapsedTime = stopWatch.end();
+            callback.onArrSearchMidCalculated(String.valueOf(elapsedTime));
         };
-        Future<Long> future = executor.submit(callable);
-        long result3 = future.get();
-        executor.shutdown();
-        return "" + result3 + "ms" ;
+        arrSearchMidExecutor.execute(runnable);
     }
 
 
-    public String linkedAddMid () throws ExecutionException, InterruptedException {
-        /*
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Callable<Long> callable = () -> {
+    public void linkedAddMid() {
+         Runnable runnable = () -> {
+            StopWatch stopWatch = new StopWatch();
+            stopWatch.start();
                 LinkedList<Integer> linkedList = new LinkedList<>();
                 Random rand = new Random();
                 int num;
@@ -84,20 +90,16 @@ public class MainProcess implements MainActivityContract.allProcess {
                     linkedList.add(num);
                 }
                 linkedList.add(5000000, 10);
-            return SystemClock.currentThreadTimeMillis();
+             long elapsedTime = stopWatch.end();
+            callback.onLinkAdMidCalculated(String.valueOf(elapsedTime));
         };
-        Future<Long> future = executor.submit(callable);
-        long result4 = future.get();
-        executor.shutdown();
-
-         */
-        return "" + 4 + "ms" ;
+        linkAddMidExecutor.execute(runnable);
     }
 
-    public String linkedRemMid () throws ExecutionException, InterruptedException {
-        /*
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Callable<Long> callable = () -> {
+    public void linkedRemMid() {
+       Runnable runnable = () -> {
+            StopWatch stopWatch = new StopWatch();
+            stopWatch.start();
             LinkedList<Integer> linkedList = new LinkedList<>();
             Random rand = new Random();
             int num;
@@ -106,14 +108,44 @@ public class MainProcess implements MainActivityContract.allProcess {
                     linkedList.add(num);
                 }
                 linkedList.remove(5000000);
-            return SystemClock.currentThreadTimeMillis();
+            long elapsedTime = stopWatch.end();
+            callback.onLinkRemoveMidCalculated(String.valueOf(elapsedTime));
         };
-        Future<Long> future = executor.submit(callable);
-        long result5 = future.get();
-        executor.shutdown();
+        linkRemoveMidExecutor.execute(runnable);
+    }
 
-         */
-        return "" + 5 + "ms" ;
+    @Override
+    public void linkedSearch() {
+        Runnable runnable = () -> {
+            StopWatch stopWatch = new StopWatch();
+            stopWatch.start();
+            LinkedList<Integer> linkedList = new LinkedList<>();
+            Random rand = new Random();
+            int num;
+            for (int i = 0; i < 10000000; i++) {
+                num = rand.nextInt(10);
+                linkedList.add(num);
+            }
+            boolean x = linkedList.contains(50);
+            long elapsedTime = stopWatch.end();
+            callback.onLinkSearchMidCalculated(String.valueOf(elapsedTime));
+        };
+        linkSearchMidExecutor.execute(runnable);
+
+    }
+
+    interface Callback {
+        void onArrAdMidCalculated(String result);
+
+        void onArrRemoveMidCalculated(String result);
+
+        void onArrSearchMidCalculated(String result);
+
+        void onLinkAdMidCalculated(String result);
+
+        void onLinkRemoveMidCalculated(String result);
+
+        void onLinkSearchMidCalculated(String result);
     }
 
 }

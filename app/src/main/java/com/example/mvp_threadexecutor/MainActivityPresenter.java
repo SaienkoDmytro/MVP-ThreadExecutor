@@ -1,31 +1,56 @@
 package com.example.mvp_threadexecutor;
 
-import java.util.concurrent.ExecutionException;
-
-public class MainActivityPresenter implements MainActivityContract.Presenter {
+public class MainActivityPresenter implements MainActivityContract.Presenter, MainProcess.Callback {
 
     private final MainActivityContract.View view;
     private final MainActivityContract.allProcess process;
 
-    private String massageAddMid,  massageRemMid, massageArrSearch, massageLinkAddMid, massageLinkRemMid;
 
     public MainActivityPresenter(MainActivityContract.View view) {
         this.view = view;
-        this.process = new MainProcess();
+        this.process = new MainProcess(this);
     }
 
     @Override
-    public void doCalculations() throws ExecutionException, InterruptedException {
-        massageAddMid = process.arrAddMid();
-        massageRemMid = process.arrRemoveMid();
-        massageArrSearch = process.arrSearchMid();
-        massageLinkAddMid = process.linkedAddMid();
-        massageLinkRemMid = process.linkedRemMid();
-        view.setArrAddMid(massageAddMid);
-        view.setArrRemMid(massageRemMid);
-        view.setArrSearch(massageArrSearch);
-        view.setLinkAddMid(massageLinkAddMid);
-        view.setLinkRemMid(massageLinkRemMid);
+    public void doCalculations() {
+        view.showCalcStarted();
+
+        process.arrAddMid();
+        process.arrRemoveMid();
+        process.arrSearchMid();
+        process.linkedAddMid();
+        process.linkedRemMid();
+        process.linkedSearch();
     }
-    
+
+    @Override
+    public void onArrAdMidCalculated(String result) {
+        view.setArrAddMid(result);
+    }
+
+    @Override
+    public void onArrRemoveMidCalculated(String result) {
+        view.setArrRemMid(result);
+    }
+
+    @Override
+    public void onArrSearchMidCalculated(String result) {
+        view.setArrSearch(result);
+    }
+
+    @Override
+    public void onLinkAdMidCalculated(String result)  {
+        view.setLinkAddMid(result);
+    }
+
+    @Override
+    public void onLinkRemoveMidCalculated(String result)  {
+        view.setLinkRemMid(result);
+    }
+
+    @Override
+    public void onLinkSearchMidCalculated(String result)  {
+        view.setLinkSearch(result);
+    }
+
 }

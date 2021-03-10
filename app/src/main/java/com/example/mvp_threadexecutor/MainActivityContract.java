@@ -10,6 +10,8 @@ public interface MainActivityContract {
         void setArrSearch(String massage);
         void setLinkAddMid(String massage);
         void setLinkRemMid(String massage);
+        void setLinkSearch(String massage);
+        void showCalcStarted();
     }
 
     interface Presenter {
@@ -17,11 +19,12 @@ public interface MainActivityContract {
     }
 
     interface allProcess {
-        String arrAddMid() throws ExecutionException, InterruptedException;
-        String arrRemoveMid() throws ExecutionException, InterruptedException;
-        String arrSearchMid() throws ExecutionException, InterruptedException;
-        String linkedAddMid() throws ExecutionException, InterruptedException;
-        String linkedRemMid() throws ExecutionException, InterruptedException;
+        void arrAddMid();
+        void arrRemoveMid();
+        void arrSearchMid();
+        void linkedAddMid();
+        void linkedRemMid();
+        void linkedSearch();
     }
 
 }

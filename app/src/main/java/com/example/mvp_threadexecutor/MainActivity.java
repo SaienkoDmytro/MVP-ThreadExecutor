@@ -3,11 +3,8 @@ package com.example.mvp_threadexecutor;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import java.util.concurrent.ExecutionException;
 
@@ -45,27 +42,42 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
     @Override
     public void setArrAddMid(String massage) {
-        arrAddmid.setText(massage);
+        runOnUiThread(() -> arrAddmid.setText(massage));
     }
 
     @Override
     public void setArrRemMid(String massage) {
-        arrRemmid.setText(massage);
+        runOnUiThread(() -> arrRemmid.setText(massage));
     }
 
     @Override
     public void setArrSearch(String massage) {
-        arrSearch.setText(massage);
+        runOnUiThread(() -> arrSearch.setText(massage));
     }
 
     @Override
     public void setLinkAddMid(String massage) {
-        linkAddmid.setText(massage);
+        runOnUiThread(() -> linkAddmid.setText(massage));
     }
 
     @Override
     public void setLinkRemMid(String massage) {
-        linkRemmid.setText(massage);
+        runOnUiThread(() -> linkRemmid.setText(massage));
     }
 
+    @Override
+    public void setLinkSearch(String massage)  {
+        runOnUiThread(() -> linkSearch.setText(massage));
+    }
+
+
+    @Override
+    public void showCalcStarted() {
+        arrAddmid.setText(R.string.calculating);
+        arrRemmid.setText(R.string.calculating);
+        arrSearch.setText(R.string.calculating);
+        linkAddmid.setText(R.string.calculating);
+        linkRemmid.setText(R.string.calculating);
+        linkSearch.setText(R.string.calculating);
+    }
 }
