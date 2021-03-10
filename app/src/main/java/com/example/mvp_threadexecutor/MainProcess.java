@@ -53,6 +53,26 @@ public class MainProcess implements MainActivityContract.allProcess {
         return "" + time + "ms" ;
     }
 
+    public String arrSearchMid () {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                ArrayList<Integer> list = new ArrayList<>();
+                Random rand = new Random();
+                int num;
+                for (int i = 0; i < 10000000; i++) {
+                    num = rand.nextInt(10);
+                    list.add(num);
+                }
+                boolean x = list.contains(50);
+                time = SystemClock.currentThreadTimeMillis();
+            }
+        });
+        executorService.shutdownNow();
+        return "" + time + "ms" ;
+    }
+
 
     public String linkedAddMid () {
         ExecutorService executorService = Executors.newSingleThreadExecutor();

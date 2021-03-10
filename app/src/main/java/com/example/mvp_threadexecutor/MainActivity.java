@@ -45,5 +45,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         arrRemmid.setText(massage);
     }
 
+    @Override
+    public void arrSearch(String massage) {
+        arrSearch.setText(massage);
+    }
+
 
 }

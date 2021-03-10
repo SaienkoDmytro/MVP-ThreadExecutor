@@ -5,6 +5,7 @@ public interface MainActivityContract {
     interface View {
         void arrAddMid(String massage);
         void arrRemMid(String massage);
+        void arrSearch(String massage);
     }
 
     interface Presenter {
@@ -14,6 +15,7 @@ public interface MainActivityContract {
     interface allProcess {
         String arrAddiMid();
         String arrRemoveMid();
+        String arrSearchMid();
     }
 
 }
