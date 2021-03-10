@@ -9,6 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import java.util.concurrent.ExecutionException;
+
 public class MainActivity extends AppCompatActivity implements MainActivityContract.View {
 
     private MainActivityContract.Presenter presenter;
@@ -22,7 +24,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         presenter = new MainActivityPresenter(this);
 
         ImageView calculate = findViewById(R.id.calculate);
-        calculate.setOnClickListener(view -> presenter.doCalculations());
+        calculate.setOnClickListener(view -> {
+            try {
+                presenter.doCalculations();
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
 
         arrAddmid = findViewById(R.id.arr_addmid);
         linkAddmid = findViewById(R.id.link_addmid);
@@ -36,19 +44,28 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     }
 
     @Override
-    public void arrAddMid(String massage) {
+    public void setArrAddMid(String massage) {
         arrAddmid.setText(massage);
     }
 
     @Override
-    public void arrRemMid(String massage) {
+    public void setArrRemMid(String massage) {
         arrRemmid.setText(massage);
     }
 
     @Override
-    public void arrSearch(String massage) {
+    public void setArrSearch(String massage) {
         arrSearch.setText(massage);
     }
 
+    @Override
+    public void setLinkAddMid(String massage) {
+        linkAddmid.setText(massage);
+    }
+
+    @Override
+    public void setLinkRemMid(String massage) {
+        linkRemmid.setText(massage);
+    }
 
 }
