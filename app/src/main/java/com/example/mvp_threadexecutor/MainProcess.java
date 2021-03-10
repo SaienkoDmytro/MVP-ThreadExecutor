@@ -8,14 +8,14 @@ import java.util.concurrent.Executors;
 
 public class MainProcess implements MainActivityContract.allProcess {
 
-    private ExecutorService arrAddMidExecutor = Executors.newSingleThreadExecutor();
-    private ExecutorService arrRemoveMidExecutor = Executors.newSingleThreadExecutor();
-    private ExecutorService arrSearchMidExecutor = Executors.newSingleThreadExecutor();
-    private ExecutorService linkAddMidExecutor = Executors.newSingleThreadExecutor();
-    private ExecutorService linkRemoveMidExecutor = Executors.newSingleThreadExecutor();
-    private ExecutorService linkSearchMidExecutor = Executors.newSingleThreadExecutor();
+    private final ExecutorService arrAddMidExecutor = Executors.newSingleThreadExecutor();
+    private final ExecutorService arrRemoveMidExecutor = Executors.newSingleThreadExecutor();
+    private final ExecutorService arrSearchMidExecutor = Executors.newSingleThreadExecutor();
+    private final ExecutorService linkAddMidExecutor = Executors.newSingleThreadExecutor();
+    private final ExecutorService linkRemoveMidExecutor = Executors.newSingleThreadExecutor();
+    private final ExecutorService linkSearchMidExecutor = Executors.newSingleThreadExecutor();
 
-    private Callback callback;
+    private final Callback callback;
 
 
     public MainProcess(Callback callback) {
@@ -30,13 +30,14 @@ public class MainProcess implements MainActivityContract.allProcess {
             ArrayList<Integer> list = new ArrayList<>();
             Random rand = new Random();
             int num;
-            for (int i = 0; i < 10000000; i++) {
+            for (int i = 0; i < 2000000; i++) {
                 num = rand.nextInt(10);
                 list.add(num);
             }
-            list.add(5000000, 10);
+            list.add(1000000, 10);
+
             long elapsedTime = stopWatch.end();
-            callback.onArrAdMidCalculated(String.valueOf(elapsedTime));
+            callback.onArrAdMidCalculated(String.valueOf(elapsedTime)+"ms");
         };
         arrAddMidExecutor.execute(runnable);
     }
@@ -48,13 +49,14 @@ public class MainProcess implements MainActivityContract.allProcess {
             ArrayList<Integer> list = new ArrayList<>();
             Random rand = new Random();
             int num;
-            for (int i = 0; i < 10000000; i++) {
+            for (int i = 0; i < 2000000; i++) {
                 num = rand.nextInt(10);
                 list.add(num);
             }
-            list.remove(5000000);
+            list.remove(1000000);
+
             long elapsedTime = stopWatch.end();
-            callback.onArrRemoveMidCalculated(String.valueOf(elapsedTime));
+            callback.onArrRemoveMidCalculated(String.valueOf(elapsedTime)+"ms");
         };
         arrRemoveMidExecutor.execute(runnable);
     }
@@ -66,13 +68,14 @@ public class MainProcess implements MainActivityContract.allProcess {
             ArrayList<Integer> list = new ArrayList<>();
             Random rand = new Random();
             int num;
-            for (int i = 0; i < 10000000; i++) {
+            for (int i = 0; i < 2000000; i++) {
                 num = rand.nextInt(10);
                 list.add(num);
             }
             boolean x = list.contains(50);
+
             long elapsedTime = stopWatch.end();
-            callback.onArrSearchMidCalculated(String.valueOf(elapsedTime));
+            callback.onArrSearchMidCalculated(String.valueOf(elapsedTime)+"ms");
         };
         arrSearchMidExecutor.execute(runnable);
     }
@@ -85,13 +88,14 @@ public class MainProcess implements MainActivityContract.allProcess {
                 LinkedList<Integer> linkedList = new LinkedList<>();
                 Random rand = new Random();
                 int num;
-                for (int i = 0; i < 10000000; i++) {
+                for (int i = 0; i < 2000000; i++) {
                     num = rand.nextInt(10);
                     linkedList.add(num);
                 }
-                linkedList.add(5000000, 10);
+                linkedList.add(1000000, 10);
+
              long elapsedTime = stopWatch.end();
-            callback.onLinkAdMidCalculated(String.valueOf(elapsedTime));
+            callback.onLinkAdMidCalculated(String.valueOf(elapsedTime)+"ms");
         };
         linkAddMidExecutor.execute(runnable);
     }
@@ -103,13 +107,14 @@ public class MainProcess implements MainActivityContract.allProcess {
             LinkedList<Integer> linkedList = new LinkedList<>();
             Random rand = new Random();
             int num;
-                for (int i = 0; i < 10000000; i++) {
+                for (int i = 0; i < 2000000; i++) {
                     num = rand.nextInt(10);
                     linkedList.add(num);
                 }
-                linkedList.remove(5000000);
+                linkedList.remove(1000000);
+
             long elapsedTime = stopWatch.end();
-            callback.onLinkRemoveMidCalculated(String.valueOf(elapsedTime));
+            callback.onLinkRemoveMidCalculated(String.valueOf(elapsedTime)+"ms");
         };
         linkRemoveMidExecutor.execute(runnable);
     }
@@ -122,13 +127,14 @@ public class MainProcess implements MainActivityContract.allProcess {
             LinkedList<Integer> linkedList = new LinkedList<>();
             Random rand = new Random();
             int num;
-            for (int i = 0; i < 10000000; i++) {
+            for (int i = 0; i < 2000000; i++) {
                 num = rand.nextInt(10);
                 linkedList.add(num);
             }
             boolean x = linkedList.contains(50);
+
             long elapsedTime = stopWatch.end();
-            callback.onLinkSearchMidCalculated(String.valueOf(elapsedTime));
+            callback.onLinkSearchMidCalculated(String.valueOf(elapsedTime)+"ms");
         };
         linkSearchMidExecutor.execute(runnable);
 
