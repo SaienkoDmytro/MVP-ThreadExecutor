@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MVP-ThreadExecutor</string>
+    <string name="ms">0ms</string>
+</resources>
