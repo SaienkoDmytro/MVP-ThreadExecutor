@@ -21,6 +21,9 @@ public class MainActivityPresenter implements MainActivityContract.Presenter, Ma
         process.linkedAddMid();
         process.linkedRemMid();
         process.linkedSearch();
+        process.copyAddMid();
+        process.copyRemMid();
+        process.copySearch();
     }
 
     @Override
@@ -51,6 +54,21 @@ public class MainActivityPresenter implements MainActivityContract.Presenter, Ma
     @Override
     public void onLinkSearchMidCalculated(String result)  {
         view.setLinkSearch(result);
+    }
+
+    @Override
+    public void onCopyAdMidCalculated(String result)      {
+        view.setCopyAddMid(result);
+    }
+
+    @Override
+    public void onCopyRemoveMidCalculated(String result)   {
+        view.setCopyRemMid(result);
+    }
+
+    @Override
+    public void onCopySearchMidCalculated(String result)   {
+        view.setCopySearch(result);
     }
 
 }

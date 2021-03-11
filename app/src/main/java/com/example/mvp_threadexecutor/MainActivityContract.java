@@ -11,6 +11,9 @@ public interface MainActivityContract {
         void setLinkAddMid(String massage);
         void setLinkRemMid(String massage);
         void setLinkSearch(String massage);
+        void setCopyAddMid(String massage);
+        void setCopyRemMid(String massage);
+        void setCopySearch(String massage);
         void showCalcStarted();
     }
 
@@ -25,6 +28,9 @@ public interface MainActivityContract {
         void linkedAddMid();
         void linkedRemMid();
         void linkedSearch();
+        void copyAddMid();
+        void copyRemMid();
+        void copySearch();
     }
 
 }

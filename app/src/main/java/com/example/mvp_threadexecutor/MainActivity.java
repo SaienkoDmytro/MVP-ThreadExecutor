@@ -70,6 +70,21 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         runOnUiThread(() -> linkSearch.setText(massage));
     }
 
+    @Override
+    public void setCopyAddMid(String massage)   {
+        runOnUiThread(() -> copyAddmid.setText(massage));
+    }
+
+    @Override
+    public void setCopyRemMid(String massage)   {
+        runOnUiThread(() -> copyRemmid.setText(massage));
+    }
+
+    @Override
+    public void setCopySearch(String massage)   {
+        runOnUiThread(() -> copySearch.setText(massage));
+    }
+
 
     @Override
     public void showCalcStarted() {
@@ -79,5 +94,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         linkAddmid.setText(R.string.calculating);
         linkRemmid.setText(R.string.calculating);
         linkSearch.setText(R.string.calculating);
+        copyAddmid.setText(R.string.calculating);
+        copyRemmid.setText(R.string.calculating);
+        copySearch.setText(R.string.calculating);
     }
 }
