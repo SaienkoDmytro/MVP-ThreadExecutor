@@ -2,8 +2,8 @@ package com.example.mvp_threadexecutor;
 
 public class MainActivityPresenter implements MainActivityContract.Presenter, MainProcess.Callback {
 
-    private final MainActivityContract.View view;
-    private final MainActivityContract.allProcess process;
+    private MainActivityContract.View view;
+    private MainActivityContract.allProcess process;
 
 
     public MainActivityPresenter(MainActivityContract.View view) {
@@ -14,61 +14,18 @@ public class MainActivityPresenter implements MainActivityContract.Presenter, Ma
     @Override
     public void doCalculations() {
         view.showCalcStarted();
-
-        process.arrAddMid();
-        process.arrRemoveMid();
-        process.arrSearchMid();
-        process.linkedAddMid();
-        process.linkedRemMid();
-        process.linkedSearch();
-        process.copyAddMid();
-        process.copyRemMid();
-        process.copySearch();
+        process.startThreads();
     }
 
     @Override
-    public void onArrAdMidCalculated(String result) {
-        view.setArrAddMid(result);
+    public void onDestroy() {
+        view = null;
+        process = null;
     }
 
     @Override
-    public void onArrRemoveMidCalculated(String result) {
-        view.setArrRemMid(result);
-    }
-
-    @Override
-    public void onArrSearchMidCalculated(String result) {
-        view.setArrSearch(result);
-    }
-
-    @Override
-    public void onLinkAdMidCalculated(String result)  {
-        view.setLinkAddMid(result);
-    }
-
-    @Override
-    public void onLinkRemoveMidCalculated(String result)  {
-        view.setLinkRemMid(result);
-    }
-
-    @Override
-    public void onLinkSearchMidCalculated(String result)  {
-        view.setLinkSearch(result);
-    }
-
-    @Override
-    public void onCopyAdMidCalculated(String result)      {
-        view.setCopyAddMid(result);
-    }
-
-    @Override
-    public void onCopyRemoveMidCalculated(String result)   {
-        view.setCopyRemMid(result);
-    }
-
-    @Override
-    public void onCopySearchMidCalculated(String result)   {
-        view.setCopySearch(result);
+    public void getCalculatedResultPlace(String result, int place) {
+        view.setTimeToTextView(result, place);
     }
 
 }

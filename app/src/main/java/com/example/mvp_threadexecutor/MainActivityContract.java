@@ -5,32 +5,17 @@ import java.util.concurrent.ExecutionException;
 public interface MainActivityContract {
 
     interface View {
-        void setArrAddMid(String massage);
-        void setArrRemMid(String massage);
-        void setArrSearch(String massage);
-        void setLinkAddMid(String massage);
-        void setLinkRemMid(String massage);
-        void setLinkSearch(String massage);
-        void setCopyAddMid(String massage);
-        void setCopyRemMid(String massage);
-        void setCopySearch(String massage);
+        void setTimeToTextView(String massage, int place);
         void showCalcStarted();
     }
 
     interface Presenter {
         void doCalculations() throws ExecutionException, InterruptedException;
+        void onDestroy();
     }
 
     interface allProcess {
-        void arrAddMid();
-        void arrRemoveMid();
-        void arrSearchMid();
-        void linkedAddMid();
-        void linkedRemMid();
-        void linkedSearch();
-        void copyAddMid();
-        void copyRemMid();
-        void copySearch();
+        void startThreads();
     }
 
 }
